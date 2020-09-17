@@ -2,10 +2,12 @@ package example.atp.controllers;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 import example.atp.domain.NameDTO;
 import example.atp.domain.Pet;
 import example.atp.repositories.PetRepository;
+import example.atp.services.PetHealthOperations;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.scheduling.TaskExecutors;
@@ -17,8 +19,13 @@ class PetController {
 
     private final PetRepository petRepository;
 
-    PetController(PetRepository petRepository) {
+    // a new field
+    private final PetHealthOperations petHealthOperations;
+
+    //updated constructor, adding petHealthOperations
+    PetController(PetRepository petRepository, PetHealthOperations petHealthOperations) {
         this.petRepository = petRepository;
+        this.petHealthOperations = petHealthOperations;
     }
 
     @Get("/")
@@ -30,4 +37,11 @@ class PetController {
     Optional<Pet> byName(String name) {
         return petRepository.findByName(name);
     }
+
+    // new method
+    @Get("/{name}/health")
+    CompletableFuture<PetHealthOperations.PetHealth> getHealth(String name) {
+        return petHealthOperations.getHealth(name);
+    }
+
 }

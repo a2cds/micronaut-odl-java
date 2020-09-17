@@ -8,3 +8,10 @@ datasources:
       oracle:
         jdbc:
           fanEnabled: false
+
+micronaut:
+  http.services:
+    pet-health:
+      urls: "http://localhost:8081"
+
+
