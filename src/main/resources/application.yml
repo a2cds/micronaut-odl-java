@@ -1,0 +1,10 @@
+datasources:
+  default:
+    url: jdbc:oracle:thin:@mnociatp_high
+    driverClassName: oracle.jdbc.OracleDriver
+    username: mnocidemo
+    dialect: ORACLE
+    data-source-properties:
+      oracle:
+        jdbc:
+          fanEnabled: false
